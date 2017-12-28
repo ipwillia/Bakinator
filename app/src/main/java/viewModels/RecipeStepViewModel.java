@@ -6,7 +6,7 @@ package viewModels;
 
 public class RecipeStepViewModel {
 
-    int Id;
+    String Id;
     String ShortDescription;
     String FullDescription;
     String VideoURL;
@@ -16,7 +16,7 @@ public class RecipeStepViewModel {
 
     }
 
-    public RecipeStepViewModel(int id, String shortDescription, String fullDescription, String videoURL, String thumbnailUrl) {
+    public RecipeStepViewModel(String id, String shortDescription, String fullDescription, String videoURL, String thumbnailUrl) {
         Id = id;
         ShortDescription = shortDescription;
         FullDescription = fullDescription;

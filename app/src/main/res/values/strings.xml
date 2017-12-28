@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Bakinator</string>
+
+    <string name="recipe_json_url">http://go.udacity.com/android-baking-app-json</string>
 </resources>

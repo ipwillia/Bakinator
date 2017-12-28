@@ -6,7 +6,7 @@ package viewModels;
 
 public class IngredientViewModel {
 
-    int Quantity;
+    double Quantity;
     String Measure;
     String Ingredient;
 
@@ -14,7 +14,7 @@ public class IngredientViewModel {
 
     }
 
-    public IngredientViewModel(int quantity, String measure, String ingredient) {
+    public IngredientViewModel(double quantity, String measure, String ingredient) {
         Quantity = quantity;
         Measure = measure;
         Ingredient = ingredient;
