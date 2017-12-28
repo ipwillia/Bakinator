@@ -19,7 +19,11 @@ public class NetworkUtilities {
     public static String getResponseFromHttpUrl(URL url) throws IOException {
         Log.d(LOG_TAG, "Opening connection");
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        urlConnection.setInstanceFollowRedirects(true);
         try {
+
+            Log.d(LOG_TAG, "Response: " + urlConnection.getResponseCode() + ": " + urlConnection.getResponseMessage());
+
             Log.d(LOG_TAG, "Getting input stream");
             InputStream in = urlConnection.getInputStream();
 
@@ -27,10 +31,14 @@ public class NetworkUtilities {
             Scanner scanner = new Scanner(in);
             scanner.useDelimiter("\\A");
 
+
+
             boolean hasInput = scanner.hasNext();
             if (hasInput) {
+                Log.d(LOG_TAG, "Has input");
                 return scanner.next();
             } else {
+                Log.d(LOG_TAG, "No input");
                 return null;
             }
         } finally {

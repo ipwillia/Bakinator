@@ -4,6 +4,7 @@ package viewModels;
  * Created by Ian on 12/27/2017.
  */
 
+@org.parceler.Parcel
 public class IngredientViewModel {
 
     double Quantity;
