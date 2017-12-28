@@ -16,12 +16,20 @@ public class NetworkUtilities {
 
     private static final String LOG_TAG = NetworkUtilities.class.getSimpleName();
 
+    private static final String REDIRECT_LOCATION = "Location";
+
     public static String getResponseFromHttpUrl(URL url) throws IOException {
         Log.d(LOG_TAG, "Opening connection");
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-        urlConnection.setInstanceFollowRedirects(true);
+
         try {
 
+            while(urlConnection.getResponseCode() == HttpURLConnection.HTTP_MOVED_PERM ||
+                    urlConnection.getResponseCode() == HttpURLConnection.HTTP_MOVED_TEMP) {
+                String redirectUrl = urlConnection.getHeaderField(REDIRECT_LOCATION);
+                Log.d(LOG_TAG, "Redirecting to " + redirectUrl);
+                urlConnection = (HttpURLConnection) new URL(redirectUrl).openConnection();
+            }
             Log.d(LOG_TAG, "Response: " + urlConnection.getResponseCode() + ": " + urlConnection.getResponseMessage());
 
             Log.d(LOG_TAG, "Getting input stream");
