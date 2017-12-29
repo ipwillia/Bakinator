@@ -7,5 +7,5 @@ import viewModels.RecipeViewModel;
  */
 
 public interface RecipeAdapterClickHandler {
-    void onClick(RecipeViewModel recipeViewModel);
+    void onRecipeClick(RecipeViewModel recipeViewModel);
 }

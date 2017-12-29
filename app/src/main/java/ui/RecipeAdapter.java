@@ -1,4 +1,4 @@
-package adapters;
+package ui;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -48,7 +48,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
             RecipeViewModel singleRecipeViewModel = mRecipeViewModels[adapterPosition];
-            mRecipeAdapterClickHandler.onClick(singleRecipeViewModel);
+            mRecipeAdapterClickHandler.onRecipeClick(singleRecipeViewModel);
         }
 
     }
