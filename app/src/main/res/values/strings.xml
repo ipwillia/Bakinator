@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Bakinator</string>
 
+    <string name="network_error">Network error, please try again</string>
+
     <string name="recipe_json_url">http://go.udacity.com/android-baking-app-json</string>
 </resources>

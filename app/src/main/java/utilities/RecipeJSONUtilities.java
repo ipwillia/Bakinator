@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Collections;
+
 import viewModels.IngredientViewModel;
 import viewModels.RecipeStepViewModel;
 import viewModels.RecipeViewModel;
@@ -46,7 +48,7 @@ public class RecipeJSONUtilities {
         int recipeCount = recipeJSONArray.length();
         Log.d(LOG_TAG, "Found " + recipeCount + " recipes");
 
-        recipeViewModels = new RecipeViewModel[recipeJSONArray.length()];
+        recipeViewModels = new RecipeViewModel[recipeCount];
 
         for(int i = 0; i < recipeCount; i++) {
             JSONObject singleRecipeJSON = recipeJSONArray.getJSONObject(i);
@@ -66,6 +68,15 @@ public class RecipeJSONUtilities {
 
             recipeViewModels[i] = singleRecipeViewModel;
         }
+
+        //Super special hack
+        int duplicationFactor = 10;
+        int duplicatedArrayLength = recipeCount * duplicationFactor;
+        RecipeViewModel[] duplicatedRecipeViewModels = new RecipeViewModel[duplicatedArrayLength];
+        for(int i = 0; i < duplicatedArrayLength; i++) {
+            duplicatedRecipeViewModels[i] = recipeViewModels[i % recipeCount];
+        }
+        recipeViewModels = duplicatedRecipeViewModels;
 
         return recipeViewModels;
     }
