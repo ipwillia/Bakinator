@@ -2,6 +2,8 @@ package viewModels;
 
 import org.parceler.Parcel;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by Ian on 12/27/2017.
  */
@@ -9,9 +11,9 @@ import org.parceler.Parcel;
 @Parcel
 public class IngredientViewModel {
 
-    double Quantity;
-    String Measure;
-    String Ingredient;
+    public double Quantity;
+    public String Measure;
+    public String Ingredient;
 
     public IngredientViewModel() {
 
@@ -23,6 +25,9 @@ public class IngredientViewModel {
         Ingredient = ingredient;
     }
 
-
+    public String getQuantityMeasureString() {
+        DecimalFormat decimalFormat = new DecimalFormat("0.#");
+        return decimalFormat.format(Quantity) + " " + Measure;
+    }
 
 }

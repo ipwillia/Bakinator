@@ -1,4 +1,4 @@
-package utilities.Constants;
+package utilities;
 
 /**
  * Created by Ian on 12/28/2017.

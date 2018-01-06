@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 import interfaces.FetchRecipesTaskCaller;
 import interfaces.RecipeAdapterClickHandler;
 import tasks.FetchRecipesTask;
-import utilities.Constants.Constants;
+import utilities.Constants;
 import viewModels.RecipeViewModel;
 
 

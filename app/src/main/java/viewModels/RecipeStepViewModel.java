@@ -9,11 +9,11 @@ import org.parceler.Parcel;
 @Parcel
 public class RecipeStepViewModel {
 
-    String Id;
-    String ShortDescription;
-    String FullDescription;
-    String VideoURL;
-    String ThumbnailUrl;
+    public String Id;
+    public String ShortDescription;
+    public String FullDescription;
+    public String VideoURL;
+    public String ThumbnailUrl;
 
     public RecipeStepViewModel() {
 
