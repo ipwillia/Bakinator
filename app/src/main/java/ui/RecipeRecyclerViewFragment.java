@@ -6,6 +6,7 @@ package ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +21,9 @@ import android.widget.TextView;
 import com.example.android.bakinator.R;
 
 import org.parceler.Parcels;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,18 +62,17 @@ public class RecipeRecyclerViewFragment extends Fragment
         Log.d(LOG_TAG, "Butterknifing views");
         ButterKnife.bind(this, rootView);
 
-        if (savedInstanceState != null) {
-            if(savedInstanceState.containsKey(Constants.KEY_WIDE_LAYOUT)) {
-                Log.d(LOG_TAG, "Getting wide layout from saved instance state");
-                mWideLayout = (boolean) savedInstanceState.getSerializable(Constants.KEY_WIDE_LAYOUT);
-            }
+        Log.d(LOG_TAG, "Getting wide layout from values xml");
+        mWideLayout = getResources().getBoolean(R.bool.wide_layout);
 
+        if (savedInstanceState != null) {
             if(savedInstanceState.containsKey(Constants.KEY_RECIPE_VIEWMODELS)) {
                 Log.d(LOG_TAG, "Getting view models from saved instance state");
-                mRecipeViewModels = Parcels.unwrap(savedInstanceState.getParcelable(Constants.KEY_RECIPE_VIEWMODELS));
+                ArrayList<RecipeViewModel> recipeViewModelArrayList = Parcels.unwrap(savedInstanceState.getParcelable(Constants.KEY_RECIPE_VIEWMODELS));
+                Log.d(LOG_TAG, "Found " + recipeViewModelArrayList.size());
+                mRecipeViewModels = recipeViewModelArrayList.toArray(new RecipeViewModel[0]);
             }
         }
-
 
         mRecipeAdapter = new RecipeAdapter(this);
         mRecyclerView.setAdapter(mRecipeAdapter);
@@ -77,6 +80,9 @@ public class RecipeRecyclerViewFragment extends Fragment
 
         if(mRecipeViewModels == null) {
             loadRecipeData();
+        }
+        else {
+            receiveRecipeData(mRecipeViewModels);
         }
 
         return rootView;
@@ -99,8 +105,10 @@ public class RecipeRecyclerViewFragment extends Fragment
         }
 
         if(mWideLayout) {
+            Log.d(LOG_TAG, "Using grid for wide layout");
             mLayoutManager = new GridLayoutManager(getActivity(), SPAN_COUNT);
         } else {
+            Log.d(LOG_TAG, "Using list for standard layout");
             mLayoutManager = new LinearLayoutManager(getActivity());
         }
 
@@ -111,8 +119,10 @@ public class RecipeRecyclerViewFragment extends Fragment
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save currently selected layout manager.
-        savedInstanceState.putSerializable(Constants.KEY_WIDE_LAYOUT, mWideLayout);
-        savedInstanceState.putParcelable(Constants.KEY_RECIPE_VIEWMODELS, Parcels.wrap(mRecipeViewModels));
+        Log.d(LOG_TAG, "Wrapping parcelable");
+        Parcelable wrappedRecipeViewModels = Parcels.wrap(new ArrayList(Arrays.asList(mRecipeViewModels)));
+        Log.d(LOG_TAG, "Putting parcelable in saved instance state");
+        savedInstanceState.putParcelable(Constants.KEY_RECIPE_VIEWMODELS, wrappedRecipeViewModels);
         super.onSaveInstanceState(savedInstanceState);
     }
 

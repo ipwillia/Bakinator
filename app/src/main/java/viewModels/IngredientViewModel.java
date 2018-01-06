@@ -1,10 +1,12 @@
 package viewModels;
 
+import org.parceler.Parcel;
+
 /**
  * Created by Ian on 12/27/2017.
  */
 
-@org.parceler.Parcel
+@Parcel
 public class IngredientViewModel {
 
     double Quantity;

@@ -1,15 +1,12 @@
 package viewModels;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import java.util.List;
+import org.parceler.Parcel;
 
 /**
  * Created by Ian on 12/27/2017.
  */
 
-@org.parceler.Parcel
+@Parcel
 public class RecipeViewModel {
 
     public String Id;
