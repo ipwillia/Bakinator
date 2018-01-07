@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void onRecipeClick(RecipeViewModel recipeViewModel) {
-        Context context = this;
         Log.d(LOG_TAG, "Clicked [" + recipeViewModel.Id + "] " + recipeViewModel.Name);
 
         Log.d(LOG_TAG, "Putting recipe viewmodel in bundle");

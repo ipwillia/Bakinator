@@ -5,4 +5,7 @@
 
     <string name="recipe_json_url">http://go.udacity.com/android-baking-app-json</string>
     <string name="title_activity_recipe_step">RecipeStepActivity</string>
+
+    <string name="ingredients_title">Ingredients</string>
+    <string name="steps_title">Steps</string>
 </resources>

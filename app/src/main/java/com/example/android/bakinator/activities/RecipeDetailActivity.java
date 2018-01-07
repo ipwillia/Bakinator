@@ -58,11 +58,9 @@ public class RecipeDetailActivity extends AppCompatActivity
         }
     }
 
-    public void onRecipeStepClick(RecipeViewModel recipeViewModel, int stepIndex) {
+    public void onRecipeStepClick(int stepIndex) {
         Context context = this;
-        Log.d(LOG_TAG, "Clicked [" + stepIndex + "] " + recipeViewModel.RecipeStepViewModels[stepIndex]);
-
-
+        Log.d(LOG_TAG, "Clicked [" + stepIndex + "] " + mRecipeViewModel.RecipeStepViewModels[stepIndex]);
     }
 
 }

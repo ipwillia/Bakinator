@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 import viewModels.IngredientViewModel;
 import viewModels.RecipeStepViewModel;
 
@@ -47,10 +49,11 @@ public class StepAdapter extends ArrayAdapter<RecipeStepViewModel> {
                     .load(recipeStepViewModel.ThumbnailUrl)
                     .into(stepThumbnailImageView);
         } else {
-            stepThumbnailImageView.setVisibility(View.INVISIBLE);
+            stepThumbnailImageView.setVisibility(View.GONE);
         }
 
         stepShortDescriptionTextView.setText(recipeStepViewModel.ShortDescription);
+
 
         return convertView;
     }
