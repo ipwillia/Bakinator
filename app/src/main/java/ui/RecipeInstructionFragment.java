@@ -1,6 +1,7 @@
 package ui;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,6 +13,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.android.bakinator.R;
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelection;
+import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.google.android.exoplayer2.upstream.BandwidthMeter;
+import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
 
 import org.parceler.Parcels;
 
@@ -43,6 +58,7 @@ public class RecipeInstructionFragment extends Fragment {
     @BindView(R.id.ll_instruction_navigation) LinearLayout mNavigationLinearLayout;
     @BindView(R.id.bt_next_instruction) Button mNavigationNextButton;
     @BindView(R.id.bt_previous_instruction) Button mNavigationPrevButton;
+    @BindView(R.id.ex_instruction) SimpleExoPlayerView mInstructionSimpleExoPlayerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,6 +79,23 @@ public class RecipeInstructionFragment extends Fragment {
         mPrevAvailable = argumentsBundle.getBoolean(Constants.KEY_RECIPE_STEP_PREV_AVAILABLE);
 
         mRecipeInstructionsTextView.setText(mRecipeStepViewModel.FullDescription);
+
+        if(mRecipeStepViewModel.VideoURL != null &&
+                mRecipeStepViewModel.VideoURL.length() > 0) {
+            BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
+            TrackSelection.Factory videoTrackSelectionFactory = new AdaptiveTrackSelection.Factory(bandwidthMeter);
+            TrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
+
+            SimpleExoPlayer simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector);
+
+            DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getContext(), Util.getUserAgent(getContext(), "bakinator"), null);
+            MediaSource mediaSource = new ExtractorMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse(mRecipeStepViewModel.VideoURL));
+
+            simpleExoPlayer.prepare(mediaSource);
+
+            mInstructionSimpleExoPlayerView.setPlayer(simpleExoPlayer);
+        }
+
         if(mNavigationAllowed == false) {
             mNavigationLinearLayout.setVisibility(View.GONE);
         } else {
@@ -113,5 +146,15 @@ public class RecipeInstructionFragment extends Fragment {
         savedInstanceState.putBoolean(Constants.KEY_RECIPE_STEP_NEXT_AVAILABLE, mNextAvailable);
         savedInstanceState.putBoolean(Constants.KEY_RECIPE_STEP_PREV_AVAILABLE, mPrevAvailable);
         super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onPause() {
+        if(mInstructionSimpleExoPlayerView != null &&
+                mInstructionSimpleExoPlayerView.getPlayer() != null) {
+            mInstructionSimpleExoPlayerView.getPlayer().release();
+        }
+
+        super.onPause();
     }
 }
