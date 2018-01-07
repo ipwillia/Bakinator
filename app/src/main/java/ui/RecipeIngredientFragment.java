@@ -39,7 +39,6 @@ public class RecipeIngredientFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_recipe_ingredients, container, false);
         rootView.setTag(TAG);
 
-        Log.d(LOG_TAG, "Butterknifing views");
         ButterKnife.bind(this, rootView);
 
         if (savedInstanceState != null) {

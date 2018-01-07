@@ -59,7 +59,6 @@ public class RecipeRecyclerViewFragment extends Fragment
         View rootView = inflater.inflate(R.layout.fragment_recipe_list, container, false);
         rootView.setTag(TAG);
 
-        Log.d(LOG_TAG, "Butterknifing views");
         ButterKnife.bind(this, rootView);
 
         Log.d(LOG_TAG, "Getting wide layout from values xml");
@@ -120,9 +119,11 @@ public class RecipeRecyclerViewFragment extends Fragment
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save currently selected layout manager.
         Log.d(LOG_TAG, "Wrapping parcelable");
-        Parcelable wrappedRecipeViewModels = Parcels.wrap(new ArrayList(Arrays.asList(mRecipeViewModels)));
-        Log.d(LOG_TAG, "Putting parcelable in saved instance state");
-        savedInstanceState.putParcelable(Constants.KEY_RECIPE_VIEWMODELS, wrappedRecipeViewModels);
+        if(mRecipeViewModels != null) {
+            Parcelable wrappedRecipeViewModels = Parcels.wrap(new ArrayList(Arrays.asList(mRecipeViewModels)));
+            Log.d(LOG_TAG, "Putting parcelable in saved instance state");
+            savedInstanceState.putParcelable(Constants.KEY_RECIPE_VIEWMODELS, wrappedRecipeViewModels);
+        }
         super.onSaveInstanceState(savedInstanceState);
     }
 

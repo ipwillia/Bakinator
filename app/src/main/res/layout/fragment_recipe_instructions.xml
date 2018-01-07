@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.android.bakinator.activities.MainActivity">
+
+    <TextView
+       android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="VIDEOPLAYER GOES HERE"
+        android:textSize="70sp" />
+
+    <TextView
+        android:id="@+id/tv_recipe_instructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textSize="20sp"
+        style="@android:style/TextAppearance.DeviceDefault.Large" />
+
+    <LinearLayout
+        android:id="@+id/ll_instruction_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/bt_previous_instruction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/prev_instruction"/>
+
+        <Button
+            android:id="@+id/bt_next_instruction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next_instruction"/>
+
+    </LinearLayout>
+
+</LinearLayout>

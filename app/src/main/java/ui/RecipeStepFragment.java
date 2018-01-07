@@ -44,7 +44,6 @@ public class RecipeStepFragment extends Fragment
         View rootView = inflater.inflate(R.layout.fragment_recipe_steps, container, false);
         rootView.setTag(TAG);
 
-        Log.d(LOG_TAG, "Butterknifing views");
         ButterKnife.bind(this, rootView);
 
         if (savedInstanceState != null) {
@@ -93,6 +92,6 @@ public class RecipeStepFragment extends Fragment
 
     @Override
     public void onRecipeStepClick(int stepIndex) {
-        Log.d(LOG_TAG, "Clicked [" + stepIndex + "] " + mRecipeViewModel.RecipeStepViewModels[stepIndex].ShortDescription);
+        mRecipeStepAdapterClickHandler.onRecipeStepClick(stepIndex);
     }
 }
